@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +27,6 @@ public class OrderService {
         uva.save(order.getIdcliente());
 
         List<Dish>produtos_persistidos = new ArrayList<>();
-
-//        for (int i = 0; i < order.getProduct().size(); i++) {
-//            kiwi.save(order.getProduct().get(i));
-//            produtos_persistidos.add(order.getProduct().get(i));
-//        }
-
-//        order.setProduct(produtos_persistidos);
 
         for (Dish produto : order.getProduct()){
             if (produto.getId() != null) {
@@ -57,6 +49,21 @@ public class OrderService {
     public List<Order> recuparaPedidos (){
          List<Order> pedidos =banana.findAll();
          return pedidos;
+    }
+
+    public Order atualizar(Order morango){
+        Order pedidoAtualizado = null;
+        //Cliente
+        if (Integer.valueOf(morango.getId()) != null){
+            //vamos atualizar
+            pedidoAtualizado = banana.findById(morango.getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado"));
+        }
+        // vamos criar
+        pedidoAtualizado.setStatus(morango.getStatus());
+
+        banana.save(pedidoAtualizado);
+        return pedidoAtualizado;
     }
 
 

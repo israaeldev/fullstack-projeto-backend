@@ -9,7 +9,7 @@ import com.ibeus.Comanda.Digital.service.DishService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dishes")
+@RequestMapping("/api/dishes")
 @CrossOrigin(origins = "http://localhost:4200")
 public class DishController {
 

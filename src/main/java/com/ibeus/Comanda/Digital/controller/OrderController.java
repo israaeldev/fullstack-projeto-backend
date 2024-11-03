@@ -25,4 +25,8 @@ public class OrderController {
         return abacaxi.recuparaPedidos();
     }
 
+    @PutMapping
+    Order atualizarPedido(@RequestBody Order morango){
+        return abacaxi.atualizar(morango);
+    }
 }
