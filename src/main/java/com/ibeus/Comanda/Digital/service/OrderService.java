@@ -6,7 +6,9 @@ import com.ibeus.Comanda.Digital.repository.ClientRepository;
 import com.ibeus.Comanda.Digital.repository.DishRepository;
 import com.ibeus.Comanda.Digital.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,21 @@ public class OrderService {
 
         List<Dish>produtos_persistidos = new ArrayList<>();
 
-        for (int i = 0; i < order.getProduct().size(); i++) {
-            kiwi.save(order.getProduct().get(i));
-            produtos_persistidos.add(order.getProduct().get(i));
+//        for (int i = 0; i < order.getProduct().size(); i++) {
+//            kiwi.save(order.getProduct().get(i));
+//            produtos_persistidos.add(order.getProduct().get(i));
+//        }
+
+//        order.setProduct(produtos_persistidos);
+
+        for (Dish produto : order.getProduct()){
+            if (produto.getId() != null) {
+                 Dish produtoexistente = kiwi.findById(produto.getId())
+                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto nao encontrado."));
+                 produtos_persistidos.add(produtoexistente);
+
+            }
+
         }
 
         order.setProduct(produtos_persistidos);
