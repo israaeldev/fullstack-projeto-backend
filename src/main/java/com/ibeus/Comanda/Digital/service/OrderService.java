@@ -40,6 +40,11 @@ public class OrderService {
 
     }
 
+    public List<Order> recuparaPedidos (){
+         List<Order> pedidos =banana.findAll();
+         return pedidos;
+    }
+
 
 
 }
