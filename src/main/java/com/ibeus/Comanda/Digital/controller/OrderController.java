@@ -15,18 +15,22 @@ public class OrderController {
     OrderService abacaxi;
 
     @PostMapping
-    Order criarPedido(@RequestBody Order abacate){
+    Order criarPedido(@RequestBody Order abacate) {
         return abacaxi.criarOrder(abacate);
-
     }
 
     @GetMapping
-    List<Order> pedidos () {
+    List<Order> pedidos() {
         return abacaxi.recuparaPedidos();
     }
 
+    @GetMapping("/{id}")
+    public Order getOrderById(@PathVariable int id) {
+        return abacaxi.getOrderById(id);
+    }
+
     @PutMapping
-    Order atualizarPedido(@RequestBody Order morango){
+    Order atualizarPedido(@RequestBody Order morango) {
         return abacaxi.atualizar(morango);
     }
 }

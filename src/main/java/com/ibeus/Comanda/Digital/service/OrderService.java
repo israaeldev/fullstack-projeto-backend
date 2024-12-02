@@ -46,6 +46,11 @@ public class OrderService {
 
     }
 
+    public Order getOrderById(int id) {
+        return banana.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado"));
+    }
+
     public List<Order> recuparaPedidos (){
          List<Order> pedidos =banana.findAll();
          return pedidos;
